@@ -4,56 +4,95 @@ function getComputerChoice(){
     return arr[choice];
 }
 
-function game(player, comp){
-    function playround(pchoice, cchoice){
-        if (pchoice.toLowerCase() === cchoice.toLowerCase()) {
-            return "tie";
-        } else if (pchoice.toLowerCase() === "scissors") {
-            if (cchoice.toLowerCase() === "rock") {
-                comp += 1;
-                return "computer wins";
-            } else {
-                player += 1;
-                return "player wins";
-            }
-        } else if (pchoice.toLowerCase() === "rock") {
-            if (cchoice.toLowerCase() === "scissors") {
-                player += 1;
-                return "player wins";
-            } else {
-                comp += 1;
-                return "computer wins";
-            }
+function playround(pchoice, cchoice){
+    if (pchoice.toLowerCase() === cchoice.toLowerCase()) {
+        return "tie";
+    } else if (pchoice.toLowerCase() === "scissors") {
+        if (cchoice.toLowerCase() === "rock") {
+            return "computer wins";
         } else {
-            if (cchoice.toLowerCase() === "scissors"){
-                comp += 1;
-                return "computer wins";
-            } else {
-                player += 1;
-                return "player wins";
-            }
+            return "player wins";
         }
-    }
-
-    for (let i = 0; i < 5; i = i + 1){
-        const playerchoice = prompt("Your choice: ");
-        const compchoice = getComputerChoice();
-        console.log(playerchoice);
-        console.log(compchoice);
-        console.log(playround(playerchoice, compchoice));
-        console.log("player");
-        console.log(player);
-        console.log("computer");
-        console.log(comp);
-    }
-
-    if (player > comp){
-        console.log("Player wins!")
+    } else if (pchoice.toLowerCase() === "rock") {
+        if (cchoice.toLowerCase() === "scissors") {
+            return "player wins";
+        } else {
+            return "computer wins";
+        }
     } else {
-        console.log("Computer wins!")
+        if (cchoice.toLowerCase() === "scissors"){
+            return "computer wins";
+        } else {
+            return "player wins";
+        }
     }
 }
 
-player = 0;
-comp = 0;
-game(player, comp);
+
+
+function clicked(choice){
+    const playerchoice = choice;
+    const compchoice = getComputerChoice();
+
+    const result = playround(playerchoice, compchoice);
+
+    if (created === ""){
+
+        showchosen.appendChild(showplayer);
+        showchosen.appendChild(showcomp);
+        showchosen.appendChild(showplayerscore);
+        showchosen.appendChild(showcompscore);
+        showchosen.appendChild(showresult);
+
+        container.append(showchosen);
+
+        created = "created";
+
+    }
+
+    if (result === "player wins"){
+        playerscore += 1;
+    } else if (result === "computer wins"){
+        compscore += 1;
+    }
+
+    showplayer.textContent = "Player has chosen: " + playerchoice;
+    showcomp.textContent = "Computer has chosen: " + compchoice;
+    showplayerscore.textContent = "Player Score: " + playerscore;
+    showcompscore.textContent = "Computer Score: " + compscore;
+
+    if (playerscore === 5) {
+        showresult.textContent = "Player wins overall game!";
+        playerscore = 0;
+        compscore = 0;
+    } else if (compscore === 5){
+        showresult.textContent = "Computer wins overall game!";
+        compscore = 0;
+        playerscore = 0;
+    } else {
+        showresult.textContent = result;
+    }
+
+
+}
+
+const rock = document.querySelector('#rock');
+const paper = document.querySelector('#paper');
+const scissors = document.querySelector('#scissors');
+
+const container = document.querySelector('#message');
+
+const showchosen = document.createElement('div');
+const showplayer = document.createElement('p');
+const showcomp = document.createElement('p');
+const showplayerscore = document.createElement('p');
+const showcompscore = document.createElement('p');
+const showresult = document.createElement('h3');
+
+let created = "";
+let playerscore = 0;
+let compscore = 0;
+
+rock.addEventListener('click', () => clicked("rock"));
+paper.addEventListener('click', () => clicked("paper"));
+scissors.addEventListener('click', () => clicked("scissors"));
