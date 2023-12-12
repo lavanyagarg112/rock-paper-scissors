@@ -5,6 +5,6 @@ This is my first javascript project. This project strengthened my basic understa
 The one who gets 5 points first wins, after which the game resets.
 Hope you all enjoy it!
 
-https://lavanyagarg112.github.io/rock-paper-scissors/
+[Rock-Paper-Scissors Basic Game](https://lavanyagarg112.github.io/rock-paper-scissors/)
 
-I will add a better UI in the future.
+Future Scope: Add a good UI.
